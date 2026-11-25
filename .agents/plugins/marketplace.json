@@ -1,0 +1,12 @@
+{
+  "name": "epilogue",
+  "interface": { "displayName": "Epilogue" },
+  "plugins": [
+    {
+      "name": "operator-sdk",
+      "source": { "source": "local", "path": "./plugins/operator-sdk" },
+      "policy": { "installation": "AVAILABLE", "authentication": "ON_INSTALL" },
+      "category": "Developer Tools"
+    }
+  ]
+}

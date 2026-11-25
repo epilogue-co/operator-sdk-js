@@ -1,0 +1,108 @@
+Epilogue Operator SDK License
+Parametric Semiconductors S.R.L. (Epilogue)
+
+1. Scope
+
+The Operator developer program provides Epilogue's documentation, sample code,
+libraries and tools ("Materials") for developing applications compatible with
+supported Operator devices. By using these Materials, you agree to this license.
+
+If acting for an organisation, you confirm your authority to bind it.
+
+2. Licence and ownership
+
+We grant you a worldwide, non-exclusive, royalty-free licence for the duration
+of these Terms to use and copy the Materials to develop, test and support
+compatible applications. You may modify supplied sample code, incorporate it in
+your applications and distribute it with them, permitting end users to use it as
+incorporated. You may reproduce and distribute the SDK runtime library in source
+or object form as part of your applications, and permit end users to use it with
+them. Retain these Terms and applicable copyright notices with distributed SDK
+components.
+
+Epilogue and its licensors retain ownership of the Materials. You retain
+ownership of your application and original contributions. Components supplied
+under separate licences remain governed by those licences. These Terms grant no
+rights in third-party software, content or trademarks and do not restrict rights
+that applicable law does not permit us to limit.
+
+3. Your application
+
+You independently develop and distribute your application and are responsible
+for its operation, testing, security, support, end-user terms and privacy
+practices. Your application and its distribution must comply with applicable law
+and third-party rights.
+
+You must not require payment, a subscription or a paid upgrade to access or
+unlock your application's Operator-device functionality.
+
+4. Compatibility and branding
+
+You may accurately describe your application as compatible with the relevant
+Operator device. Use of Epilogue logos or badges requires our separate
+permission. Participation does not establish an agency, partnership, endorsement
+or certification, and you must not represent otherwise.
+
+5. Support and liability
+
+The Materials are provided "as is". To the extent permitted by law, we do not
+warrant uninterrupted or error-free operation, compatibility or fitness for a
+particular purpose, or undertake to provide support, maintenance or updates.
+
+If you participate for business purposes, Epilogue's total liability arising
+from these Terms is limited to EUR 100, and Epilogue is not liable for indirect
+or consequential loss or loss of profit, revenue or data.
+
+Nothing in these Terms excludes or limits liability for intentional misconduct,
+gross negligence, death, injury to physical or mental integrity or health, or
+any liability that cannot lawfully be excluded or limited. Consumers retain
+their statutory rights and remedies.
+
+6. Third-party claims
+
+If you participate for business purposes, you will reimburse Epilogue for
+reasonable defence costs and amounts finally awarded or settled with your
+approval in third-party claims, to the extent caused by your application's
+infringement of their rights or your material breach of these Terms. This
+obligation excludes amounts attributable to Epilogue's conduct or to the
+unmodified Materials as supplied by us.
+
+We will notify you promptly and reasonably cooperate at your expense. You may
+control the defence with suitably qualified counsel. Neither party may settle a
+covered claim imposing an admission or obligation on the other without that
+party's written consent, which must not be unreasonably withheld.
+
+7. Duration and termination
+
+You may terminate by ceasing to use and distribute the Materials. We may
+terminate for a material breach that remains unremedied 15 days after written
+notice specifying the breach. We may immediately suspend affected program access
+where reasonably necessary to address unlawful use or a material security risk,
+explaining the reason where legally permitted and lifting the suspension when
+its grounds cease.
+
+On termination, cease using and distributing the Materials under these Terms and
+using any program badges. Termination does not require withdrawal of your
+application's independently developed components. Permissions already granted to
+end users for the runtime library and incorporated sample code continue for
+their existing applications. Ownership, accrued obligations, Sections 5, 6 and
+9, and this paragraph survive termination.
+
+8. Updates and other terms
+
+We may offer updated Materials under a revised license. Revised terms do not
+retrospectively replace the terms governing versions already supplied to you.
+
+These Terms govern participation in this program and prevail over conflicting
+personal-use or development restrictions in our website and hardware terms to
+the extent necessary for the activities authorised here. They do not extend
+licences for separately supplied applications. If a provision is unenforceable,
+the remaining provisions continue in effect.
+
+9. Governing law
+
+These Terms are governed by Romanian law. For business participants, the courts
+of Bucharest, Romania, have exclusive jurisdiction over disputes arising from
+these Terms; either party may seek interim relief from any competent court.
+Consumers retain the protection of mandatory applicable law and their rights to
+bring proceedings before the courts available to them under that law.

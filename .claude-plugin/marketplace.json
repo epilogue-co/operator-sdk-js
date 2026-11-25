@@ -1,0 +1,6 @@
+{
+  "name": "epilogue",
+  "owner": { "name": "Epilogue" },
+  "metadata": { "description": "Coding skills for the Epilogue Operator SDKs." },
+  "plugins": [{ "name": "operator-sdk", "source": "./plugins/operator-sdk" }]
+}

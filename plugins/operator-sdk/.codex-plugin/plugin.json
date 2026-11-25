@@ -1,0 +1,13 @@
+{
+  "name": "operator-sdk",
+  "version": "0.1.1",
+  "description": "Build cartridge integrations with the Epilogue Operator C and JavaScript SDKs.",
+  "author": { "name": "Epilogue" },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Epilogue Operator SDK",
+    "shortDescription": "Build apps for GB Operator and SN Operator",
+    "developerName": "Epilogue",
+    "websiteURL": "https://www.epilogue.co"
+  }
+}
