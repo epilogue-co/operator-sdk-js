@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Identify a cartridge</title>
+<script type="importmap">{ "imports": { "@epilogue/opsdk": "../../dist/index.js" } }</script>
+</head>
+<body>
+<button id="connect" type="button">Connect an Operator</button>
+<button id="disconnect" type="button" disabled>Disconnect</button>
+<pre id="out"></pre>
+<script type="module">
+import { HostError, OpsdkError, Operator, Status, USB_DEVICE_FILTERS, isStatus } from '@epilogue/opsdk';
+
+const out = document.getElementById('out');
+const log = text => (out.textContent += text + '\n');
+let op = null;
+
+async function connect() {
+  if (navigator.usb) {
+    const known = (await navigator.usb.getDevices()).find(d =>
+      USB_DEVICE_FILTERS.some(f => f.vendorId === d.vendorId && f.productId === d.productId));
+    try {
+      return known ? await Operator.openUsbDevice(known) : await Operator.requestUsbDevice();
+    } catch (e) {
+      if (!(e instanceof OpsdkError && e.code === HostError.UNAVAILABLE) || !navigator.serial) throw e;
+      log('This firmware has no WebUSB interface, using Web Serial.');
+    }
+  }
+  return Operator.requestPort();
+}
+document.getElementById('connect').addEventListener('click', async () => {
+  try {
+    op = await connect();
+    document.getElementById('disconnect').disabled = false;
+    const info = await op.info();
+    log(`Connected to ${info.serial}, firmware ${info.appVersion.join('.')}`);
+    const cart = await op.cartStatus();
+    log(!cart.logoValid ? 'No readable cartridge.' : `Cartridge with a ${cart.romSize} B game and a ${cart.saveSize} B save.`);
+  } catch (e) {
+    if (e.name === 'NotFoundError') log('No device chosen.');
+    else if (isStatus(e, Status.UNKNOWN_COMMAND)) log('Update the Operator firmware to use the SDK.');
+    else log(`Something went wrong (${e.message}).`);
+  }
+});
+document.getElementById('disconnect').addEventListener('click', async () => {
+  await op?.close();
+  op = null;
+  document.getElementById('disconnect').disabled = true;
+  log('Disconnected.');
+});
+addEventListener('pagehide', () => void op?.close());
+</script>
+</body>
+</html>

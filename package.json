@@ -1,0 +1,73 @@
+{
+  "name": "@epilogue/opsdk",
+  "version": "0.3.0",
+  "description": "Epilogue Operator SDK: connect to an Operator over WebUSB, Web Serial or a Node serial port, identify cartridges, read game data, back up and restore saves, and use cartridge peripherals.",
+  "license": "SEE LICENSE IN LICENSE",
+  "author": "Epilogue",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/epilogue-co/operator-sdk-js.git"
+  },
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./node": {
+      "types": "./dist/node.d.ts",
+      "node": "./dist/node.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "!dist/**/*.map",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "rm -rf dist && tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "npm run build && node --test test/*.test.mjs",
+    "check": "npm run build && node tools/check.mjs",
+    "serve": "npm run build && node scripts/serve.mjs",
+    "prepare": "npm run build",
+    "conformance:record": "npm run build && node scripts/record-conformance.mjs"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.39.4",
+    "@types/node": "20.19.43",
+    "eslint": "9.39.4",
+    "prettier": "3.8.1",
+    "serialport": "13.0.0",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.56.0"
+  },
+  "keywords": [
+    "epilogue",
+    "operator",
+    "gb-operator",
+    "sn-operator",
+    "webusb",
+    "web-serial",
+    "cartridge"
+  ],
+  "peerDependencies": {
+    "serialport": ">=12"
+  },
+  "peerDependenciesMeta": {
+    "serialport": {
+      "optional": true
+    }
+  }
+}
