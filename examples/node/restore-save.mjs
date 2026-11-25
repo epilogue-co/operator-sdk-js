@@ -12,22 +12,26 @@ if (!input || !backupPath) {
 }
 const data = new Uint8Array(await fs.readFile(input));
 
+const equal = (a, b) => a.length === b.length && a.every((v, i) => v === b[i]);
+
 const op = await openNodeSerial(path ? { path } : {});
 let session = false;
 try {
   const info = await op.info();
   if (!info.has(Op.SAVE_WRITE)) throw new Error('This firmware cannot write saves.');
 
-  const cart = await op.sessionBegin();
-  session = true;
-  if (cart.counterfeit) throw new Error('Writes are refused on this cartridge.');
+  const cart = await op.cartStatus();
+  if (!cart.logoValid)
+    throw new Error('No readable cartridge. Insert one, or clean and reseat it.');
+  if (cart.flashcart || cart.counterfeit) throw new Error('Writes are refused on this cartridge.');
   if (data.length !== cart.saveSize)
     throw new Error(
       `${input} is ${data.length} B but this cartridge's save is ${cart.saveSize} B.`
     );
+  const unchanged = now => now.logoValid && sameCartridge(cart, now);
 
   const current = await op.readSave(cart);
-  if (crc32(current) !== (await op.saveCrc32(cart)))
+  if (crc32(current) !== (await op.saveCrc32(cart)) || !unchanged(await op.cartStatus()))
     throw new Error('The backup read did not verify, nothing written.');
   await fs.writeFile(backupPath, current, { flag: 'wx' });
   console.log(`Backed up the current save to ${backupPath}.`);
@@ -37,11 +41,15 @@ try {
   rl.close();
   if (answer.trim() !== 'yes') throw new Error('Not confirmed, nothing written.');
 
-  if (!sameCartridge(cart, await op.cartStatus()))
-    throw new Error('The cartridge changed, nothing written.');
+  const held = await op.sessionBegin();
+  session = true;
+  if (!unchanged(held)) throw new Error('The cartridge changed, nothing written.');
+  if (!equal(await op.readSave(held), current))
+    throw new Error(`The save no longer matches ${backupPath}, nothing written.`);
+  if (!unchanged(await op.cartStatus())) throw new Error('The cartridge changed, nothing written.');
 
   try {
-    await op.writeSave(cart, data, {
+    await op.writeSave(held, data, {
       onProgress: (done, total) => void process.stdout.write(`\r${done}/${total} B`),
     });
     process.stdout.write('\n');
@@ -50,8 +58,14 @@ try {
     console.error(`Recover by restoring ${backupPath} once the cartridge is reseated.`);
     throw e;
   }
-  const written = await op.saveCrc32(cart);
-  if (written !== crc32(data)) {
+  let verified = false;
+  try {
+    const written = await op.readSave(held);
+    verified = unchanged(await op.cartStatus()) && equal(written, data);
+  } catch (e) {
+    console.error(e.message);
+  }
+  if (!verified) {
     throw new Error(
       `Verification failed. The save on the cartridge does not match ${input}. Restore ${backupPath}.`
     );
@@ -64,6 +78,11 @@ try {
   else console.error(e.message);
   process.exitCode = 1;
 } finally {
-  if (session) await op.sessionEnd().catch(() => {});
+  if (session) {
+    await op.sessionEnd().catch(e => {
+      if (!process.exitCode) console.error(`The session did not end cleanly (${e.message}).`);
+      process.exitCode = 1;
+    });
+  }
   await op.close();
 }

@@ -27,7 +27,7 @@ test(
   async () => {
     await withFake(async port => {
       const { stdout } = await run(process.execPath, [path.join(examples, 'identify.mjs'), port]);
-      assert.match(stdout, /Operator SIMULATED0001, firmware 1\.2\.3/);
+      assert.match(stdout, /Operator SIMULATED0001, firmware 10\.1\.0/);
       assert.match(stdout, /Game Boy \/ Color cartridge, game 65536 B, save 8192 B/);
 
       const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'opsdk-'));

@@ -16,8 +16,15 @@ export const isAbort = d =>
   d.length >= 16 && ABORT.every((c, i) => d[i] === c && d[8 + i] === (c ^ 0xff));
 
 export class FakeOperator {
-  constructor({ sdk = true, platform = 0x20, saveSize = 8192, rtcStatus = 0 } = {}) {
+  constructor({
+    sdk = true,
+    platform = 0x20,
+    saveSize = 8192,
+    rtcStatus = 0,
+    appVersion = [10, 1, 0],
+  } = {}) {
     this.sdk = sdk;
+    this.appVersion = appVersion;
     this.platform = platform;
     this.rom = Uint8Array.from({ length: 65536 }, (_, i) => (i * 7 + (i >> 9)) & 0xff);
     // marker lookalikes inside the rom, must come back as plain data
@@ -106,7 +113,7 @@ export class FakeOperator {
       case 0xa1:
         pkt.set([...'OPSD'].map(c => c.charCodeAt(0)));
         pkt[4] = 1;
-        pkt.set([1, 2, 3], 0x08);
+        pkt.set(this.appVersion, 0x08);
         pkt.set(
           [...'SIMULATED0001'].map(c => c.charCodeAt(0)),
           0x12

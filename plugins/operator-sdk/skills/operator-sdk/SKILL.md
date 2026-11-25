@@ -11,7 +11,7 @@ Use the API reference for the installed version: [JavaScript](https://www.epilog
 
 **Write a save.** For a whole-save restore, follow this order.
 
-1. Check that the replacement matches the reported size. The restore walkthrough supports positive multiples of 512 and excludes cartridges flagged as counterfeit.
+1. Check that the replacement matches the reported size. The restore walkthrough supports positive multiples of 512 and excludes cartridges flagged as flashcart or counterfeit.
 2. Verify and persist the original save. Ask for confirmation only after storage succeeds.
 3. Open a session and check for cancellation. Check the returned cartridge, then read its save and compare it with the recovery copy. Two copies of the same game can share a signature.
 4. Recheck the readable header and signature, then check cancellation immediately before the write. In C, a signal handler sets a flag that the calling code checks between SDK calls.

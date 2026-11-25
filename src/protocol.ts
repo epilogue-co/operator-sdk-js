@@ -353,7 +353,7 @@ export function parseSignature(raw: Uint8Array): Cartridge {
   const pow2 = romShift && romShift < 32 ? 2 ** romShift : 0;
   // non power-of-two roms (3 MiB, 6 MiB): odd multiplier in the low 2 bits, shift above
   const coded = raw[SIG_ROM_CODED];
-  let exact = coded ? (2 * (coded & 3) + 1) * 2 ** (coded >> 2) : 0;
+  let exact = coded && coded >> 2 < 29 ? (2 * (coded & 3) + 1) * 2 ** (coded >> 2) : 0;
   if (exact && pow2 && exact > pow2) exact = pow2;
   const saveShiftSize = saveShift && saveShift < 32 ? 2 ** saveShift : 0;
   return {

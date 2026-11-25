@@ -9,6 +9,7 @@ import { runCall } from '../test/conformance-calls.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const hex = b => Buffer.from(b).toString('hex');
+const RECORDED_APP_VERSION = [1, 2, 3];
 
 const SCENARIOS = [
   ['device', {}, ['ping 0x5a', 'info']],
@@ -50,7 +51,7 @@ const SCENARIOS = [
 ];
 
 async function record([name, options, steps]) {
-  const dev = new FakeOperator(options);
+  const dev = new FakeOperator({ appVersion: RECORDED_APP_VERSION, ...options });
   const lines = [`scenario ${name}`];
   let pending = null;
   const flush = () => {

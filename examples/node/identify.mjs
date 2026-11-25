@@ -27,7 +27,8 @@ try {
     console.log(
       `${PLATFORM_NAMES[cart.platform] ?? 'Unknown platform'} cartridge, game ${cart.romSize} B, save ${cart.saveSize} B`
     );
-    if (cart.counterfeit) console.log('  Writes are refused on this cartridge (counterfeit).');
+    if (cart.flashcart || cart.counterfeit)
+      console.log('  Writes are refused on this cartridge (flashcart or counterfeit).');
   }
 } catch (e) {
   if (!(e instanceof OpsdkError)) throw e;

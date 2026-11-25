@@ -99,6 +99,9 @@ test('signature parsing and cartridge comparison', () => {
   assert.equal(parseSignature(raw).saveSize, 98304);
   raw.set([0, 0, 0x10, 0], 0x14);
   assert.equal(parseSignature(raw).romSize, 2 << 20);
+  raw[5] = 31;
+  raw[0x0a] = (29 << 2) | 1;
+  assert.equal(parseSignature(raw).romSize, 2 ** 31);
 });
 
 test('rtc4513 decode', () => {
@@ -201,7 +204,7 @@ test('basic transactions', async () => {
   await op.ping(0x12);
   const info = await op.info();
   assert.equal(info.serial, 'SIMULATED0001');
-  assert.deepEqual(info.appVersion, [1, 2, 3]);
+  assert.deepEqual(info.appVersion, [10, 1, 0]);
   const { has } = info;
   assert.ok(has(Op.ROM_READ) && !has(Op.LED_SET) && !has(0x10));
 

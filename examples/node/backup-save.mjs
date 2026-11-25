@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import fs from 'node:fs/promises';
 
-import { Platform, Status, crc32, isStatus } from '@epilogue/opsdk';
+import { Platform, Status, crc32, isStatus, sameCartridge } from '@epilogue/opsdk';
 import { openNodeSerial } from '@epilogue/opsdk/node';
 
 const [output, path] = process.argv.slice(2);
@@ -37,6 +37,9 @@ try {
   const deviceCrc = await op.saveCrc32(cart, { signal: controller.signal });
   if (crc32(save) !== deviceCrc)
     throw new Error('The save changed or was corrupted during the read. Try again.');
+  const after = await op.cartStatus();
+  if (!after.logoValid || !sameCartridge(cart, after))
+    throw new Error('The cartridge changed during the read. Reseat it and try again.');
 
   await writeNewFile(output, save);
   const crc = deviceCrc.toString(16).padStart(8, '0');
