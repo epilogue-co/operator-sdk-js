@@ -3,7 +3,7 @@ name: operator-sdk
 description: Build or review C and JavaScript apps that use Epilogue GB Operator or SN Operator to identify a cartridge, read games, read or write saves, or use the RTC and cartridge peripherals.
 ---
 
-Use the API reference for the installed version: [JavaScript](https://www.epilogue.co/developers/sdk/javascript) and [C](https://www.epilogue.co/developers/sdk/c). The JavaScript package includes TypeScript declarations in `dist/`. Import browser APIs from `@epilogue/opsdk` and Node serial APIs from `@epilogue/opsdk/node`. In C, include `opsdk.h` and check each status before using its output. The [JavaScript SDK](https://github.com/epilogue-co/operator-sdk-js) and [C SDK](https://github.com/epilogue-co/operator-sdk-c) have runnable examples.
+Use the API reference for the installed version: [JavaScript](https://preview.epilogue.co/developers/sdk/javascript) and [C](https://preview.epilogue.co/developers/sdk/c). The JavaScript package includes TypeScript declarations in `dist/`. Import browser APIs from `@epilogue/opsdk` and Node serial APIs from `@epilogue/opsdk/node`. In C, include `opsdk.h` and check each status before using its output. The [JavaScript SDK](https://github.com/epilogue-co/operator-sdk-js) and [C SDK](https://github.com/epilogue-co/operator-sdk-c) have runnable examples.
 
 **Identify.** Check `logoValid` or `logo_valid` on the cartridge status. A platform can be present with an unreadable header. Propagate I/O failures.
 
